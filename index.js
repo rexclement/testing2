@@ -22,7 +22,8 @@ const Storesdb = require("./models/store");
 const { redirect } = require('react-router-dom');
 const serverless = require('serverless-http');
 
-require("dotenv").config({path: "./config.env"})
+// require("dotenv").config({path: "./config.env"})
+require('dotenv').config();
 
 
 connectTOMongo();
@@ -66,10 +67,12 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy(async (username, password, done) => {
   try {
+    // console.log(username);
     const user = await Storesdb.findOne({ username });
     if (!user) return done(null, false, { message: 'User not found' });
 
     const isValid = await bcrypt.compare(password, user.password);
+    // console.log(isValid)
     if (!isValid) return done(null, false, { message: 'Wrong password' });
 
     return done(null, user);

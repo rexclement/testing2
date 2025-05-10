@@ -31,7 +31,7 @@ configureCloudinary();
 
 
 const saltRounds = 10;
-const port = 5000;
+const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));

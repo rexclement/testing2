@@ -36,7 +36,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "https://rexclement.github.io/frontend/", // React frontend
+  origin: "https://rexclement.github.io/frontend", // React frontend
   credentials: true // Allow sending cookies
 }));
 app.use(express.json()); // Enables JSON body parsing

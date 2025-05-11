@@ -32,30 +32,34 @@ require('dotenv').config();
 connectTOMongo();
 configureCloudinary();
 
-const allowedOrigins = [
-  "https://rexclement.github.io"
-];
+// const allowedOrigins = [
+//   "https://rexclement.github.io"
+// ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error("Not allowed by CORS")); // Block the request
-    }
-  },
-  credentials: true // Allow credentials (cookies)
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true); // Allow the request
+//     } else {
+//       callback(new Error("Not allowed by CORS")); // Block the request
+//     }
+//   },
+//   credentials: true // Allow credentials (cookies)
+// };
+
 
 const saltRounds = 10;
 const port = process.env.PORT || 5000;
 const app = express();
-
+app.use(cors({
+  origin: "https://rexclement.github.io",
+  credentials: true
+}));
 // Apply CORS middleware globally
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-// Explicitly handle OPTIONS requests for preflight checks
-app.options('*', cors(corsOptions));  // Allow preflight requests for all routes
+// // Explicitly handle OPTIONS requests for preflight checks
+// app.options('*', cors(corsOptions));  // Allow preflight requests for all routes
 
 app.use(bodyParser.urlencoded({ extended: true }));
 

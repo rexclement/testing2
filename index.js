@@ -35,9 +35,20 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+const allowedOrigins = [
+  "https://rexclement.github.io",
+  "https://rexclement.github.io/ICEUfrontend"
+];
+
 app.use(cors({
-  origin: "https://rexclement.github.io", // React frontend
-  credentials: true // Allow sending cookies
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 app.use(express.json()); // Enables JSON body parsing
 

@@ -36,17 +36,28 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-  origin: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, origin);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
-app.use(express.json()); // Enables JSON body parsing
 
+app.options('*', cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, origin);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+/ Enables JSON body parsing
 
-cookie: {
-  secure: true, // Only send cookie over HTTPS
-  httpOnly: true,
-  sameSite: 'none', // Necessary for cross-site cookies
-}
 
 
 
@@ -56,8 +67,9 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     maxAge: 60 * 60 * 1000,
-    secure: false, // important for localhost
-    httpOnly: true,
+    secure: true,            // ✅ Only send cookies over HTTPS
+    httpOnly: true,          // ✅ Prevents client-side JS access
+    sameSite: 'none', 
   }
 
 }));

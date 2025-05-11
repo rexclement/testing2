@@ -74,14 +74,14 @@ app.use(express.json());
 
 
 app.use(session({
-  store: new RedisStore({ client }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,
-    sameSite: 'none',
-    httpOnly: true
+    secure: true, // Set to false only for localhost
+    httpOnly: true,
+    sameSite: 'none', // Important for cross-origin cookies
+    maxAge: 1000 * 60 * 60
   }
 }));
 

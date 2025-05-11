@@ -56,7 +56,7 @@ app.options('*', cors({
   },
   credentials: true
 }));
-/ Enables JSON body parsing
+app.use(express.json());
 
 
 

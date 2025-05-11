@@ -32,17 +32,8 @@ require('dotenv').config();
 connectTOMongo();
 configureCloudinary();
 
-
-const saltRounds = 10;
-const port = process.env.PORT || 5000;
-const app = express();
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
 const allowedOrigins = [
-  "https://rexclement.github.io",
-  "https://rexclement.github.io/ICEUfrontend"
+  "https://rexclement.github.io"
 ];
 
 const corsOptions = {
@@ -55,6 +46,15 @@ const corsOptions = {
   },
   credentials: true // Allow credentials (cookies)
 };
+
+const saltRounds = 10;
+const port = process.env.PORT || 5000;
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
 
 // Apply CORS middleware globally
 app.use(cors(corsOptions));
@@ -72,7 +72,11 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true } // For HTTPS
+  cookie: {
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true
+  }
 }));
 
 

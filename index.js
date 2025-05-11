@@ -35,25 +35,18 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-const allowedOrigins = [
-  "https://rexclement.github.io",
-  "https://rexclement.github.io/ICEUfrontend"
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: true,
   credentials: true
 }));
 app.use(express.json()); // Enables JSON body parsing
 
 
-
+cookie: {
+  secure: true, // Only send cookie over HTTPS
+  httpOnly: true,
+  sameSite: 'none', // Necessary for cross-site cookies
+}
 
 
 
@@ -207,12 +200,10 @@ app.post('/changeme', async (req, res) => {
   });
 
   app.get('/', (req, res) => {
-    res.send('Hello from Express on Vercel!');
+    res.send('Hello from Express on Render!');
   });
   
-  // Export the app as a serverless function
- 
-  module.exports = serverless(app);
+
 
 app.listen(port, () => console.log("Server running on port 5000"));
 

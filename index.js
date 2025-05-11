@@ -36,10 +36,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const allowedOrigins = [
-  "https://rexclement.github.io",
-  "https://rexclement.github.io/ICEUfrontend"
-];
+
 const allowedOrigins = [
   "https://rexclement.github.io",
   "https://rexclement.github.io/ICEUfrontend"

@@ -51,16 +51,18 @@ const saltRounds = 10;
 const port = process.env.PORT || 5000;
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-
 // Apply CORS middleware globally
 app.use(cors(corsOptions));
 
 // Explicitly handle OPTIONS requests for preflight checks
 app.options('*', cors(corsOptions));  // Allow preflight requests for all routes
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+
+
 
 app.use(express.json());
 

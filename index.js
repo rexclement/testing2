@@ -35,27 +35,33 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, origin);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
 
-app.options('*', cors({
+const allowedOrigins = [
+  "https://rexclement.github.io",
+  "https://rexclement.github.io/ICEUfrontend"
+];
+const allowedOrigins = [
+  "https://rexclement.github.io",
+  "https://rexclement.github.io/ICEUfrontend"
+];
+
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, origin);
+      callback(null, true); // Allow the request
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error("Not allowed by CORS")); // Block the request
     }
   },
-  credentials: true
-}));
+  credentials: true // Allow credentials (cookies)
+};
+
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
+
+// Explicitly handle OPTIONS requests for preflight checks
+app.options('*', cors(corsOptions));  // Allow preflight requests for all routes
+
 app.use(express.json());
 
 

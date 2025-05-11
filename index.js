@@ -21,6 +21,9 @@ const cell_router = require("./routers/Prayer_cells");
 const Storesdb = require("./models/store");
 const { redirect } = require('react-router-dom');
 const serverless = require('serverless-http');
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
+const client = redis.createClient(); 
 
 // require("dotenv").config({path: "./config.env"})
 require('dotenv').config();
@@ -65,15 +68,13 @@ app.use(express.json());
 
 
 app.use(session({
+  store: new RedisStore({ client }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    maxAge: 60 * 60 * 1000,
-    secure: true,            // ✅ Only send cookies over HTTPS
-    httpOnly: true,          // ✅ Prevents client-side JS access
-    sameSite: 'none', 
-  }
+  cookie: { secure: true } // For HTTPS
+}));
+
 
 }));
 

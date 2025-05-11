@@ -76,7 +76,7 @@ app.use(session({
 }));
 
 
-}));
+
 
 app.use(passport.initialize());
 app.use(passport.session());

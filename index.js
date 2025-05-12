@@ -21,9 +21,7 @@ const cell_router = require("./routers/Prayer_cells");
 const Storesdb = require("./models/store");
 const { redirect } = require('react-router-dom');
 const serverless = require('serverless-http');
-const RedisStore = require('connect-redis')(session);
-const redis = require('redis');
-const client = redis.createClient(); 
+
 const MongoStore = require("connect-mongo");
 
 // require("dotenv").config({path: "./config.env"})

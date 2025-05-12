@@ -38,7 +38,7 @@ const saltRounds = 10;
 const port = process.env.PORT || 5000;
 const app = express();
 app.use(cors({
-  origin: "https://rexclement.github.io",
+  origin: "https://lambent-heliotrope-4c58f2.netlify.app",
   credentials: true
 }));
 

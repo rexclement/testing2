@@ -31,20 +31,7 @@ require('dotenv').config();
 connectTOMongo();
 configureCloudinary();
 
-// const allowedOrigins = [
-//   "https://rexclement.github.io"
-// ];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true); // Allow the request
-//     } else {
-//       callback(new Error("Not allowed by CORS")); // Block the request
-//     }
-//   },
-//   credentials: true // Allow credentials (cookies)
-// };
 
 
 const saltRounds = 10;
@@ -54,11 +41,7 @@ app.use(cors({
   origin: "https://rexclement.github.io",
   credentials: true
 }));
-// Apply CORS middleware globally
-// app.use(cors(corsOptions));
 
-// // Explicitly handle OPTIONS requests for preflight checks
-// app.options('*', cors(corsOptions));  // Allow preflight requests for all routes
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -72,17 +55,6 @@ app.use(express.json());
 
 
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     secure: true, // Set to false only for localhost
-//     httpOnly: true,
-//     sameSite: 'none', // Important for cross-origin cookies
-//     maxAge: 1000 * 60 * 60
-//   }
-// }));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

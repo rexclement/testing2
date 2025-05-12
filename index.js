@@ -65,7 +65,9 @@ app.use(session({
   }),
   cookie: {
     maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
-    secure: false,
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true,
   }
 }));
 

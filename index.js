@@ -140,11 +140,15 @@ app.post('/login', (req, res, next) => {
     req.login(user, (err) => {
       if (err) return next(err);
 
-      // Do NOT manually set session fields here.
-      return res.json({ success: true, message: 'Login successful', user: user.username });
+      // Ensure session is saved before responding
+      req.session.save((err) => {
+        if (err) return next(err);
+        return res.json({ success: true, message: 'Login successful', user: user.username });
+      });
     });
   })(req, res, next);
 });
+
 
 
 app.use((req, res, next) => {

@@ -24,6 +24,7 @@ const serverless = require('serverless-http');
 const RedisStore = require('connect-redis')(session);
 const redis = require('redis');
 const client = redis.createClient(); 
+const MongoStore = require("connect-mongo");
 
 // require("dotenv").config({path: "./config.env"})
 require('dotenv').config();
@@ -84,17 +85,20 @@ app.use(express.json());
 //     maxAge: 1000 * 60 * 60
 //   }
 // }));
-// app.use(session({
-//   store: new RedisStore({ client }),
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     secure: true,
-//     sameSite: 'none',
-//     httpOnly: true
-//   }
-// }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.ATLAS_URI, // Your MongoDB connection string
+    ttl: 14 * 24 * 60 * 60 // 14 days session expiry
+  }),
+  cookie: {
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true
+  }
+}));
 
 
 

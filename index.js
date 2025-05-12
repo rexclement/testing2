@@ -58,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: process.env.ATLAS_URI,
     ttl: 60 * 60, // 1 hour in seconds

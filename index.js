@@ -104,6 +104,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (sessionUser, done) => {
+  console.log("🔍 Deserializing user:", sessionUser);
   try {
     console.log("🔍 Deserializing user:", sessionUser); // See what’s inside
 
@@ -151,11 +152,11 @@ app.post('/login', (req, res, next) => {
 
 
 
-// app.use((req, res, next) => {
-//   console.log('Session:', req.session);
-//   console.log('User:', req.user);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log('Session:', req.session);
+  console.log('User:', req.user);
+  next();
+});
 
 
 

@@ -37,6 +37,7 @@ configureCloudinary();
 const saltRounds = 10;
 const port = process.env.PORT || 5000;
 const app = express();
+app.set('trust proxy', 1);
 app.use(cors({
   origin: "https://lambent-heliotrope-4c58f2.netlify.app",
   credentials: true
@@ -64,7 +65,10 @@ app.use(session({
     ttl: 60 * 60, // 1 hour in seconds
   }),
   cookie: {
-    maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
+      secure: true,
+      sameSite: 'none',
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000, // 1 hour
   }
 }));
 

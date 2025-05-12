@@ -157,6 +157,10 @@ app.post('/login', (req, res, next) => {
 
 
 app.get('/check-auth', (req, res) => {
+  console.log('Session:', req.session);
+  console.log('User:', req.user);
+  console.log('Is Authenticated:', req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     res.json({ loggedIn: true, user: req.user });
   } else {

@@ -65,7 +65,7 @@ app.use(session({
   }),
   cookie: {
     maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
-    secure: false,
+    secure: true,
     sameSite: 'none',
     httpOnly: true
   }
@@ -152,11 +152,7 @@ app.post('/login', (req, res, next) => {
 
 
 
-app.use((req, res, next) => {
-  console.log('Session:', req.session);
-  console.log('User:', req.user);
-  next();
-});
+
 
 
 
@@ -168,7 +164,11 @@ app.get('/check-auth', (req, res) => {
   }
 });
 
-
+app.use((req, res, next) => {
+  console.log('Session:', req.session);
+  console.log('User:', req.user);
+  next();
+});
 
 app.use('/events',  event_router);
 

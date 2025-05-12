@@ -65,7 +65,7 @@ app.use(session({
   }),
   cookie: {
     maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
-    secure: true,
+    secure: false,
     sameSite: 'none',
     httpOnly: true
   }

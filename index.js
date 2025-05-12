@@ -90,10 +90,11 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.ATLAS_URI, // Your MongoDB connection string
-    ttl: 14 * 24 * 60 * 60 // 14 days session expiry
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 60 * 60, // 1 hour in seconds
   }),
   cookie: {
+    maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
     secure: true,
     sameSite: 'none',
     httpOnly: true
@@ -176,8 +177,8 @@ app.post('/login', (req, res, next) => {
 
 
 app.use((req, res, next) => {
-  // console.log('Session:', req.session);
-  // console.log('User:', req.user);
+  console.log('Session:', req.session);
+  console.log('User:', req.user);
   next();
 });
 

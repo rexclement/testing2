@@ -123,15 +123,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 
-function isAuthenticated(req, res, next) {
-   console.log("inside isAuthentication", req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    return next(); // user is logged in, continue to route
-  }else{
-    res.redirect('/');
-  }
-   // not logged in, redirect to /home
-}
+
 
 app.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
@@ -168,11 +160,11 @@ app.get('/check-auth', (req, res) => {
   }
 });
 
-app.use((req, res, next) => {
-  console.log('Session:', req.session);
-  console.log('User:', req.user);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Session:', req.session);
+//   console.log('User:', req.user);
+//   next();
+// });
 
 app.use('/events',  event_router);
 

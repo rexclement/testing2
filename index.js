@@ -84,17 +84,17 @@ app.use(express.json());
 //     maxAge: 1000 * 60 * 60
 //   }
 // }));
-app.use(session({
-  store: new RedisStore({ client }),
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: true,
-    sameSite: 'none',
-    httpOnly: true
-  }
-}));
+// app.use(session({
+//   store: new RedisStore({ client }),
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     secure: true,
+//     sameSite: 'none',
+//     httpOnly: true
+//   }
+// }));
 
 
 

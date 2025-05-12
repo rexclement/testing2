@@ -85,7 +85,7 @@ passport.use(new LocalStrategy(async (username, password, done) => {
     // console.log(username);
     const user = await Storesdb.findOne({ username });
     if (!user) return done(null, false, { message: 'User not found' });
-
+    console.log("✅ User found in passport LocalStratergy:", user.username);
     const isValid = await bcrypt.compare(password, user.password);
     // console.log(isValid)
     if (!isValid) return done(null, false, { message: 'Wrong password' });
@@ -98,20 +98,21 @@ passport.use(new LocalStrategy(async (username, password, done) => {
 
 // Session serialization
 passport.serializeUser((user, done) => {
-  
+  console.log("✅ User found in serializer:", user.username);
   // Store minimal info in session
   done(null, { id: user._id, username: user.username });
 });
 
 passport.deserializeUser(async (sessionUser, done) => {
-  
   try {
+    console.log("🔍 Deserializing user:", sessionUser); // See what’s inside
+
     const user = await Storesdb.findById(sessionUser.id);
     if (user) {
-     
+      console.log("✅ User found:", user.username);
       done(null, { id: user._id, username: user.username });
     } else {
-     
+      console.log("❌ User not found in DB");
       done(null, false);
     }
   } catch (err) {

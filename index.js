@@ -98,17 +98,17 @@ passport.use(new LocalStrategy(async (username, password, done) => {
 
 // Session serialization
 passport.serializeUser((user, done) => {
-  console.log("✅ User found in serializer:", user.username);
+  console.log("✅ User found in serializer:", user._id);
   // Store minimal info in session
-  done(null, { id: user._id, username: user.username });
+  done(null,  user._id.toString());
 });
 
-passport.deserializeUser(async (sessionUser, done) => {
-  console.log("🔍 Deserializing user:", sessionUser);
+passport.deserializeUser(async (id, done) => {
+  console.log("🔍 Deserializing user:", id);
   try {
-    console.log("🔍 Deserializing user:", sessionUser); // See what’s inside
+    console.log("🔍 Deserializing user:", id); // See what’s inside
 
-    const user = await Storesdb.findById(sessionUser.id);
+    const user = await Storesdb.findById(id);
     if (user) {
       console.log("✅ User found:", user.username);
       done(null, { id: user._id, username: user.username });

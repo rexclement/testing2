@@ -42,7 +42,7 @@ app.use(cors({
   credentials: true
 }));
 
-
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-app.use(express.json());
+
 
 
 
@@ -124,7 +124,7 @@ passport.deserializeUser(async (id, done) => {
 
 
 function isAuthenticated(req, res, next) {
-  
+   console.log("inside isAuthentication", req.isAuthenticated());
   if (req.isAuthenticated()) {
     return next(); // user is logged in, continue to route
   }else{

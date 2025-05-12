@@ -98,7 +98,7 @@ passport.use(new LocalStrategy(async (username, password, done) => {
 
 // Session serialization
 passport.serializeUser((user, done) => {
-  console.log("✅ User found in serializer:", user._id);
+  console.log("✅ User found in serializer:", user._id.toString());
   // Store minimal info in session
   done(null,  user._id.toString());
 });

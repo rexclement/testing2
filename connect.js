@@ -19,8 +19,3 @@ const connectToMongo = async () => {
 
 
 
-
-
-
-//mongodb+srv://rexclement:Aay0y4rK4cq3xe9r@cluster0.ozguu.mongodb.net/db?retryWrites=true&w=majority&appName=Cluster0
-//mongodb+srv://rexclement:Aay0y4rK4cq3xe9r@cluster0.d7z2w.mongodb.net/db?retryWrites=true&w=majority&appName=Cluster0
